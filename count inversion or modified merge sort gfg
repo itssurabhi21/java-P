@@ -1,0 +1,61 @@
+/*
+count inversion gfg -> https://www.geeksforgeeks.org/problems/inversion-of-array-1587115620/1
+while merging do check if left side is greater then all succeeding element on the left will also be greater count number of element in the left mid-i+1
+*/
+
+class Solution {
+    static int inversionCount(int arr[]) 
+    {
+        return mergeSort(arr,0,arr.length-1);
+    }
+    static int mergeSort(int arr[], int l, int r) {
+        int count =0;
+        if(l >= r) return 0;
+        int mid = (l+r)/2;
+        count+=mergeSort(arr,l,mid);
+        count+= mergeSort(arr,mid+1,r);
+        count+= merge(arr,l,mid,r);
+        return count;
+    }
+    
+    static int merge(int arr[],int s, int l, int r)
+    {
+        //temp array r-s+1
+        int count =0;
+        int[] temp = new int[r-s+1];
+        int i=s;
+        int j = l+1;
+        int k=0;
+        while(i<=l && j<=r)
+        {
+            if(arr[i]<=arr[j])
+            {
+                temp[k++]=arr[i++];
+            
+            }
+            else
+            {
+                count+=(l-i+1);
+                temp[k++]=arr[j++];
+            }
+        }
+        
+        while(i<=l)
+        {
+            temp[k++] = arr[i++];
+        }
+        
+        while(j<=r)
+        {
+            temp[k++]=arr[j++];
+        }
+        
+        //copy in array 
+        for(int a = s,b=0;a<=r;a++,b++)
+        {
+            arr[a] = temp[b];
+        }
+        return count;
+    }
+        
+}
