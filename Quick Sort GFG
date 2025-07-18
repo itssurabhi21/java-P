@@ -1,0 +1,45 @@
+/*
+quick sort gfg -> https://www.geeksforgeeks.org/problems/quick-sort/1
+single element base case
+partion function -> select a piviot  and bring it into its correct position . smaller element at its left and bigger one at right.
+call it recusively.
+*/
+
+
+class Solution {
+    
+    public void quickSort(int[] arr, int low, int high) 
+    {
+        if(low>=high) return;
+        int j = partition(arr,low,high);
+        quickSort(arr,low,j-1);
+        quickSort(arr,j+1,high);
+        
+    }
+    private int partition(int[] arr, int low, int high) 
+    {
+        int piviot = arr[high];
+        int i=low-1;//place for smallest elemnt than piviot.
+        int j=low;//for traversing the array
+        while(j<high)
+        {
+            if(arr[j]<piviot)
+            {
+                //swap(arr,j,i++);
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            j++;
+        }
+        //swap(arr,i++,high);
+            i++;
+            int temp = arr[i];
+            arr[i] = arr[high];
+            arr[high] = temp;
+        
+        return i;
+        
+    }
+}
