@@ -43,3 +43,89 @@ class Solution {
         
     }
 }
+
+
+/*
+leetcode -> check asc and desc and if desc reverse it.
+
+class Solution {
+
+    public void quickSort(int[] arr, int low, int high) 
+    {
+        if(low>=high) return;
+        int j = partition(arr,low,high);
+        quickSort(arr,low,j-1);
+        quickSort(arr,j+1,high);
+        
+    }
+    private int partition(int[] arr, int low, int high) 
+    {
+        int piviot = arr[high];
+        int i=low-1;//place for smallest elemnt than piviot.
+        int j=low;//for traversing the array
+        while(j<high)
+        {
+            if(arr[j]<piviot)
+            {
+                //swap(arr,j,i++);
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+            j++;
+        }
+        //swap(arr,i++,high);
+            i++;
+            int temp = arr[i];
+            arr[i] = arr[high];
+            arr[high] = temp;
+        
+        return i;
+        
+    }
+
+   
+
+    public boolean checkasc(int nums[])
+    {
+        for(int i=0;i<nums.length-1;i++)
+        {
+            if(nums[i]>nums[i+1]) return false;
+        }
+        return true;
+    }
+    public boolean checkdesc(int nums[])
+    {
+        for(int i=0;i<nums.length-1;i++)
+        {
+            if(nums[i]<nums[i+1]) return false;
+        }
+        return true;
+    }
+   public int[] sortArray(int[] nums) {
+    if (checkasc(nums)) return nums;
+    if (checkdesc(nums)) {
+        reverse(nums);
+        return nums;
+    }
+    quickSort(nums, 0, nums.length - 1);
+    return nums;
+}
+
+public void reverse(int[] nums) {
+    int left = 0, right = nums.length - 1;
+    while (left < right) {
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
+        left++;
+        right--;
+    }
+}
+
+    
+
+}
+
+*/
