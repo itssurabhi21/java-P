@@ -1,0 +1,51 @@
+/* 
+Leetcode ->  search in a rotated array
+https://leetcode.com/problems/search-in-rotated-sorted-array/
+*/
+//make visualization graph for ease
+class Solution {
+    public int search(int[] nums, int target) 
+    {
+        int ans = -1;
+        int low = 0,high = nums.length-1;
+        while(low<=high)
+        {
+            int mid = (low+high)/2;
+
+            if(nums[mid] == target) return mid;
+
+            //mid on line1 
+            if(nums[low] <= nums[mid])
+            {
+                //case a search on left
+                if(nums[low] <= target && target <= nums[mid]) 
+                {
+                        high = mid;
+                }
+                else
+                {
+                    low = mid+1;
+                }
+
+            }
+
+
+            //line 2
+            else
+            {
+                if(target>= nums[mid] && target <= nums[high] )
+                {
+                    low = mid+1;
+                }
+
+                else
+                {
+                    high=mid-1;
+                }
+            }
+            
+            
+        }
+        return -1;
+    }
+}
