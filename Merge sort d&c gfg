@@ -1,0 +1,53 @@
+//merge sort gfg
+//https://www.geeksforgeeks.org/problems/merge-sort/1
+
+class Solution {
+
+    void mergeSort(int arr[], int l, int r) {
+        if(l >= r) return;
+        int mid = (l+r)/2;
+        mergeSort(arr,l,mid);
+        mergeSort(arr,mid+1,r);
+        merge(arr,l,mid,r);
+        
+    }
+    
+    void merge(int arr[],int s, int l, int r)
+    {
+        //temp array r-s+1
+        
+        int[] temp = new int[r-s+1];
+        int i=s;
+        int j = l+1;
+        int k=0;
+        while(i<=l && j<=r)
+        {
+            if(arr[i]<=arr[j])
+            {
+                temp[k++]=arr[i++];
+            
+            }
+            else
+            {
+                temp[k++]=arr[j++];
+            }
+        }
+        
+        while(i<=l)
+        {
+            temp[k++] = arr[i++];
+        }
+        
+        while(j<=r)
+        {
+            temp[k++]=arr[j++];
+        }
+        
+        //copy in array 
+        for(int a = s,b=0;a<=r;a++,b++)
+        {
+            arr[a] = temp[b];
+        }
+        
+    }
+}
