@@ -1,0 +1,47 @@
+/*
+Majority Element LC -> 
+*/
+
+//Moore's Voting Algorithm
+class Solution {
+    public int majorityElement(int[] nums) {
+
+        int el=nums[0];
+        int count =1;
+        for(int i = 1;i<nums.length;i++)
+        {
+            if(nums[i] == el)
+            {
+                count++;
+            }
+            else
+            {
+                count--;
+                if(count==0)
+                {
+                    el = nums[i];
+                    count =1;
+                }
+            }
+        }
+        return el;
+}
+
+//method 2
+        HashMap<Integer,Integer> hm = new HashMap<>();
+        for(int i =0;i<nums.length;i++)
+        {
+            if(hm.containsKey(nums[i]))
+            hm.put(nums[i],hm.get(nums[i])+1);
+            else
+            {
+                hm.put(nums[i],1);
+            }
+        }
+        Set<Integer> ans = hm.keySet();
+        int i1=0;
+        for(int i:ans)
+        {
+            if(hm.get(i)>(nums.length/2)) {i1=i;break;}
+        }
+        return i1;
