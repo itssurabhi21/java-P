@@ -1,0 +1,68 @@
+// valid soduku 
+Leetcode - https://leetcode.com/problems/valid-sudoku/description/
+
+class Solution {
+
+    public boolean isSafe(int board[][],int row,int col,int digit)
+    {
+        //up
+        for(int i=0; i<9;i++)
+        {
+            if(board[i][col] == digit) return false;
+        }
+        //left
+        for(int i=0; i<9;i++)
+        {
+            if(board[row][i] == digit) return false;
+        }
+        //small box
+        int nr = (row/3 )*3;
+        int nc = (col /3 )*3;
+
+        for(int i =nr;i<nr+3;i++)
+        {
+            for(int j =nc;j<nc+3;j++)
+            {
+                if(board[i][j] == digit) return false;
+            }
+        }
+        return true;
+    }
+    public boolean isValidSudoku(char[][] board) 
+    {
+        int boardd [][] = new int [board.length][board[0].length];
+        for(int i=0;i<board.length;i++)
+        {
+            for(int j=0;j<board[0].length;j++)
+            {
+                if(board[i][j]=='.') 
+                {
+                    boardd[i][j] = 0;
+                }
+                
+                else
+                {
+                    
+                    boardd[i][j] = board[i][j] -'0'; 
+                }
+            }
+        }
+
+        for(int i=0;i<boardd.length;i++)
+        {
+            for(int j=0;j<boardd[0].length;j++)
+            {
+                int digit = boardd[i][j];
+                if(digit !=0) 
+                {
+                    boardd[i][j] = 0;
+                    if(isSafe(boardd,i,j,digit) == false)return false;
+                    boardd[i][j] = digit;
+                }
+            }
+        }
+
+        return true;
+       
+    }
+}
