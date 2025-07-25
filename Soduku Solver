@@ -1,0 +1,94 @@
+//Soduko solver
+
+//Leetcode - https://leetcode.com/problems/sudoku-solver/
+class Solution {
+     public boolean isSafe(int board[][],int row,int col,int digit)
+    {
+        //up
+        for(int i=0; i<9;i++)
+        {
+            if(board[i][col] == digit) return false;
+        }
+        //left
+        for(int i=0; i<9;i++)
+        {
+            if(board[row][i] == digit) return false;
+        }
+        //small box
+        int nr = (row/3 )*3;
+        int nc = (col /3 )*3;
+
+        for(int i =nr;i<nr+3;i++)
+        {
+            for(int j =nc;j<nc+3;j++)
+            {
+                if(board[i][j] == digit) return false;
+            }
+        }
+        return true;
+    }
+
+    public void solveSudoku(char[][] board) 
+    {
+        int boardd [][] = new int [9][9];
+
+        for(int i=0;i<board.length;i++)
+        {
+            for(int j=0;j<board[0].length;j++)
+            {
+                if(board[i][j]=='.') 
+                {
+                    boardd[i][j] = 0;
+                }
+                
+                else
+                {
+                    
+                    boardd[i][j] = board[i][j] -'0'; 
+                }
+            }
+        }
+
+        result(boardd,0,0);
+
+        //ans
+        for(int i=0;i<board.length;i++)
+        {
+            for(int j=0;j<board[0].length;j++)
+            {
+                
+                    board[i][j] = (char)('0' + boardd[i][j]); 
+            }
+        }
+        
+    }
+
+    public boolean result(int[][] board ,int row,int col )
+    {
+        int newrow = row;
+        int newcol = col+1;
+        if(row==9 ) return true;
+
+        if(col+1 == 9)
+        {
+            newrow = row+1;
+            newcol = 0;
+            //return result(board,row+1,0);
+        }
+         if(board[row][col] !=0)
+            {
+                return result(board,newrow,newcol);
+            }
+
+        for(int i=1;i<10;i++)
+        {
+               if(isSafe(board,row,col,i))
+                {
+                    board[row][col] = i;
+                    if(result(board,newrow,newcol)) return true;;
+                    board[row][col] = 0;
+
+                }
+        } return false;
+    }
+} 
