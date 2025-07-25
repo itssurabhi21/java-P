@@ -1,0 +1,40 @@
+//Rat in a maze
+gfg - https://www.geeksforgeeks.org/problems/rat-in-a-maze-problem/1
+
+class Solution {
+    // Function to find all possible paths
+    public ArrayList<String> ratInMaze(int[][] maze)
+    {   
+        ArrayList<String> ans = new ArrayList<>();
+         if (maze[0][0] == 0 || maze[maze.length - 1][maze[0].length - 1] == 0)
+            return ans;
+            
+            
+        String path = "";
+        helper(maze,0,0,path,ans);
+        return ans;
+        
+    }
+    
+     void helper(int maze[][],int row,int col, String path,ArrayList<String> ans)
+    {
+        if(row<0 || col<0 || row>= maze.length || 
+                col>=maze[0].length || maze[row][col] == 0 || maze[row][col] == -1)
+                return ;
+                
+        if(row == maze.length-1 &&  col == maze[0].length-1)
+        {
+            ans.add(path);
+            return;
+        }
+        
+        maze[row][col] = -1;
+        
+         helper(maze,row+1,col,path+"D",ans);//down row+1,c
+         helper(maze,row,col-1,path+"L",ans);//left row-1,c
+         helper(maze,row,col+1,path+"R",ans);//rght row-1,c
+          helper(maze,row-1,col,path+"U",ans);//up row-1,c
+          
+        maze[row][col] =1;
+    }
+}
