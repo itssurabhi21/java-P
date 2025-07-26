@@ -1,0 +1,27 @@
+//Two sum II LC - https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/description/
+
+class Solution {
+    public int[] twoSum(int[] numbers, int target) 
+    {
+        int i=0,j = numbers.length-1;
+        int i1=-1,i2=-1;
+        while(i<j)
+        {
+            if(numbers[i] + numbers[j] == target)
+            {
+                i1=i+1;i2=j+1;
+                return new int[]{i1,i2};
+            }
+
+            else if(numbers[i] + numbers[j] < target)
+            {
+                i++;
+            }
+            else
+            {
+                j--;
+            }
+        }
+        return new int[]{};
+    }
+}
