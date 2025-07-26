@@ -1,0 +1,65 @@
+//Keypad Combination
+//Leetcode - https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+
+//method 1
+// import java.util.*;
+// class Solution {
+
+//     public void solver(String digits, int index,String output,
+//                         String mapping[],List<String> ans)
+//     {
+//         if(index>=digits.length()) 
+//         {
+//             ans.add(output);
+//             return;
+//         }
+    
+//         int number = digits.charAt(index) - '0';
+//         String mp = mapping[number];
+//         for(int i=0;i<mp.length();i++)
+//         {
+           
+            
+//             solver(digits,index+1,output+mp.charAt(i),mapping,ans);
+            
+//         }
+//     }
+//     public List<String> letterCombinations(String digits) 
+//     {
+//         List<String> ans = new ArrayList<>();
+//         if(digits.length() == 0) return ans;
+//         String mapping[] = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+//         String output = "";
+//         int index = 0;
+//         solver(digits,index,output,mapping,ans);
+//         return ans;
+        
+        
+//     }
+// }
+
+//method 2
+class Solution {
+    public List<String> letterCombinations(String digits) {
+        List<String> ans = new ArrayList<>();
+        if (digits.length() == 0) return ans;
+
+        String[] mapping = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        solve(digits, 0, new StringBuilder(), mapping, ans);
+        return ans;
+    }
+
+    private void solve(String digits, int index, StringBuilder output, String[] mapping, List<String> ans) {
+        if (index == digits.length()) {
+            ans.add(output.toString());
+            return;
+        }
+
+        String letters = mapping[digits.charAt(index) - '0'];
+        for (int i = 0; i < letters.length(); i++) {
+            output.append(letters.charAt(i));
+            solve(digits, index + 1, output, mapping, ans);
+            output.deleteCharAt(output.length() - 1); // backtrack
+        }
+    }
+}
