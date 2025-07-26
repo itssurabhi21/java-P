@@ -1,0 +1,30 @@
+//Knight tour
+Leetcode - https://leetcode.com/problems/check-knight-tour-configuration/
+
+
+class Solution {
+    public boolean helper(int grid[][],int row,int col,int exp)
+    {
+        int n =grid.length;
+        if(row>=n || col>=n ||row<0 || col<0 || grid[row][col]!=exp)
+         return false;
+
+        if(exp == n*n -1) return true;
+         boolean ans1 = helper(grid,row-2 ,col+1,exp+1);
+         boolean ans2 = helper(grid,row-1,col+2,exp+1);
+         boolean ans3 = helper(grid,row+1,col+2,exp+1);
+         boolean ans4 = helper(grid,row+2,col+1,exp+1);
+         boolean ans5 = helper(grid,row+2,col-1,exp+1);
+         boolean ans6 = helper(grid,row+1,col-2,exp+1);
+         boolean ans7 = helper(grid,row-1,col-2,exp+1);
+         boolean ans8 = helper(grid,row-2,col-1,exp+1);
+
+         return ans1||ans2 || ans3||ans4||ans5||ans6||ans7||ans8;
+    }
+    
+    public boolean checkValidGrid(int[][] grid) 
+    {
+        return helper(grid,0,0,0);
+        
+    }
+}
