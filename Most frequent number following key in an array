@@ -1,0 +1,27 @@
+//Most frequent number following key in an array
+Leetcode - https://leetcode.com/problems/most-frequent-number-following-key-in-an-array/submissions/1713217284/
+
+class Solution {
+    public int mostFrequent(int[] nums, int key) 
+    {
+        HashMap<Integer,Integer> hm = new HashMap<>();
+       
+       int ans=0,count = 0;
+        for(int i=0;i<nums.length-1;i++)
+        {
+           if(nums[i] == key)
+           {
+                int target = nums[i+1];
+                hm.put(target,hm.getOrDefault(target,0)+1);
+                if(count<hm.get(target))
+                {
+                    count = hm.get(target);
+                    ans = target;
+                }
+
+           }
+        }
+
+        return ans;
+    }
+}
