@@ -1,0 +1,31 @@
+https://www.geeksforgeeks.org/problems/stock-span-problem-1587115621/1
+
+class Solution {
+    public ArrayList<Integer> calculateSpan(int[] arr) 
+    {
+        ArrayList<Integer> ans = new ArrayList<>();
+        Stack<Integer> s = new Stack<>();
+        s.push(0);
+        ans.add(1);
+        for(int i=1;i<arr.length;i++)
+        {
+            int currPrice = arr[i];
+            //delete all smaller prvious element to get first ggreater elemt
+            while(!s.isEmpty() && arr[s.peek()] <= currPrice)
+            {
+                s.pop();
+            }
+            //if stack is empty means left is all small
+            if(s.isEmpty()) ans.add(i+1);
+            else{
+                // span = currindex - prevHigher
+                ans.add(i - s.peek());
+            }
+            //then push it
+            s.push(i);
+        }
+        return ans;
+    }
+        
+    
+}
