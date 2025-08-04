@@ -1,0 +1,64 @@
+gfg - https://www.geeksforgeeks.org/problems/delete-n-nodes-after-m-nodes-of-a-linked-list/1
+
+/*
+delete n nodes after m nodes
+The input list will have at least one element
+Node is defined as
+  class Node
+  {
+      int data;
+      Node next;
+      Node(int data)
+      {
+          this.data = data;
+          this.next = null;
+      }
+  }
+*/
+
+class Solution {
+    static Node ogHead;
+    static Node ogTail;
+    
+    public static Node addNode(Node curr,int m)
+    {
+        Node next;
+        while(curr!=null && m>0)
+        {
+            ogTail.next = curr;
+            next = curr.next;
+            curr.next = null;
+            ogTail = curr;
+            curr = next;
+            m--;
+        }
+        return curr;
+    }
+    
+    static void linkdelete(Node head, int n, int m) 
+    {
+        if(head == null) return;
+        
+        Node dummy = new Node(-1);
+        
+        ogHead = dummy;
+        ogTail = dummy;
+        
+        Node curr = head;
+        int N = n;
+        while(curr!=null)
+        {
+            curr = addNode(curr,m);
+            
+            //delete n node
+            while(curr!=null && N>0)
+            {
+                curr = curr.next;
+                N--;
+            }
+            N = n;
+        }
+        head = dummy.next;
+        
+    }
+}
