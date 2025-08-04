@@ -1,0 +1,44 @@
+https://leetcode.com/problems/simplify-path/
+
+class Solution {
+    public String simplifyPath(String path) 
+    {
+        String arr[] = path.split("/");
+        Stack<String> st = new Stack<>();
+        
+        for(String s:arr)
+        {
+           
+            if(s.equals(".."))
+            {
+                if(!st.isEmpty())
+                    st.pop();
+                   
+            }
+            
+            else if(s.equals(".") || s.equals(""))
+            {
+                continue;
+            }
+            else
+            {
+                st.push(s);
+            }
+                
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        if(st.isEmpty()) 
+        {
+            sb.append("/");
+            return sb.toString();
+        }
+
+         while(!st.isEmpty())
+         {
+            sb.insert(0,"/"+st.pop());
+         }
+
+        return sb.toString();
+    }
+}
