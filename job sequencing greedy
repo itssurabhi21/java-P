@@ -1,0 +1,66 @@
+Job sequencing gfg
+
+class Solution {
+
+    static class Job
+    {
+        int deadline;
+        int profit;
+        Job(int d,int p)
+        {
+            deadline = d;
+            profit = p;
+        }
+    }
+    public ArrayList<Integer> jobSequencing(int[] deadline, int[] profit) {
+        // code here
+        ArrayList<Job> jobs = new ArrayList<>();
+        
+        int md = deadline[0];
+        
+        for(int i=0;i<profit.length;i++)
+        {
+            md = Math.max(md,deadline[i]);
+            jobs.add(new Job(deadline[i],profit[i]));
+        }
+        
+        Collections.sort(jobs, (a,b) -> b.profit - a.profit);//desc order
+        
+        boolean arr[] = new boolean[md+1];
+        int countP =0;
+        int ansP=0;
+        for(int i=0;i<jobs.size();i++)
+        {
+            Job curr = jobs.get(i);
+            int d = curr.deadline;
+            int p = curr.profit;
+            if(!arr[d])
+            {
+                countP++;
+                arr[d] = true;
+                ansP+=p;
+                
+            }
+            else
+            {  // f f f t t t
+                int v = d-1;
+                while(v>0 && arr[v])
+                {
+                    v--;
+                }
+                if(v>0){
+                arr[v] =  true;
+                countP++;
+                ansP+=p;}
+            }
+        }
+        
+        ArrayList<Integer> fa = new ArrayList<>();
+        fa.add(countP);
+        fa.add(ansP);
+        return fa;
+        
+        
+        
+    }
+}
